@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use DateTime;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -18,15 +19,15 @@ class UserSeeder extends Seeder
                 [
                     'username' => 'test',
                     'email' => 'test@test',
-                    // 'password' => Hash::make('testtest')
-                    'password' => 'testtest',
+                    'password' => Hash::make('testtest'),
+                    // 'password' => 'testtest',
                     'created_at' => new DateTime(),
                     'updated_at' => new DateTime(),
                 ],
                 [
                     'username' => 'test2',
                     'email' => 'test2@test',
-                    'password' => 'testtest',
+                    'password' => Hash::make('testtest'),
                     'created_at' => new DateTime(),
                     'updated_at' => new DateTime(),
                 ]
