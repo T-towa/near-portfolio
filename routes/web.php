@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +47,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/search', [PostController::class, 'search'])->name('posts.search');//検索機能
 });
+
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 require __DIR__.'/auth.php';

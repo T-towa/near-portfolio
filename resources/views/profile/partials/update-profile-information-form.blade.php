@@ -47,6 +47,12 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="introduction" :value="__('Introduction')" />
+            <x-text-input id="introduction" name="introduction" type="text" class="mt-1 block w-full" :value="old('introduction', $user->profile->introduction ?? '')" autofocus />
+            <x-input-error class="mt-2" :messages="$errors->get('introduction')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
