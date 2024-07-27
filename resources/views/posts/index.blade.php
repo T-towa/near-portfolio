@@ -108,6 +108,7 @@
                 }
             }).then(response => response.json())
               .then(data => {
+                console.log('イイネ');
                   const likesCount = document.getElementById(`likes-count-${postId}`);
                   likesCount.innerText = data.likes_count;
               });
