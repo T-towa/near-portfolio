@@ -10,7 +10,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1 class="text-2xl font-semibold mb-6">{{ $post->title }}</h1>
-
                     <p class="text-gray-600">{{ $post->text_content }}</p>
                     <p class="text-sm text-gray-500">by {{ $post->user->username }}</p>
 
@@ -42,20 +41,22 @@
                     <div class="mt-6">
                         <h2 class="text-xl font-semibold mb-4">プロフィール</h2>
                         @if ($post->user->profile)
-                            <p>{{ $post->user->profile->introduction }}</p>
+                            <p>{{ $post->user->profile->self_introduction }}</p>
                         @else
                             <p>このユーザーのプロフィールはありません。</p>
                         @endif
                     </div>
 
-                    <div class="flex-col space-y-2 mt-4">
-                        <a href="{{ route('posts.edit', $post) }}" class="block text-blue-500 hover:underline">編集</a>
-                        <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="block text-red-500 hover:underline">削除</button>
-                        </form>
-                    </div>
+                    @if (Auth::id() === $post->user_id)
+                        <div class="flex-col space-y-2 mt-4">
+                            <a href="{{ route('posts.edit', $post) }}" class="block text-blue-500 hover:underline">編集</a>
+                            <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('この投稿を削除してもよろしいですか？');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="block text-red-500 hover:underline">削除</button>
+                            </form>
+                        </div>
+                    @endif
 
                     <div class="mt-6">
                         <a href="{{ route('posts.index') }}" class="text-blue-500 hover:underline">投稿一覧へ戻る</a>
