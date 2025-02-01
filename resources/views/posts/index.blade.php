@@ -59,16 +59,18 @@
                                 <span id="likes-count-{{ $post->id }}" class="ml-2">{{ $post->likes()->count() }}</span>
                             </div>
 
-                            <!-- 編集・削除ボタン -->
-                            <div class="flex-col space-y-2 mt-4">
-                                <a href="{{ route('posts.edit', $post) }}" class="block text-blue-500 hover:underline">編集</a>
-                                
-                                <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="block text-red-500 hover:underline">削除</button>
-                                </form>
-                            </div>
+                            @if(Auth::check() && Auth::user()->id == $post->user_id)
+                                <!-- 編集・削除ボタン -->
+                                <div class="flex-col space-y-2 mt-4">
+                                    <a href="{{ route('posts.edit', $post) }}" class="block text-blue-500 hover:underline">編集</a>
+                                    
+                                    <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当にこの投稿を削除してもよろしいですか？');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="block text-red-500 hover:underline">削除</button>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                     @endforeach
 
